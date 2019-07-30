@@ -1,7 +1,7 @@
 # Ktor flyway feature
-Ktor feature for version control for your database by Flyway.
-
 [ ![Download](https://api.bintray.com/packages/viartemev/Maven/ktor-flyway-feature/images/download.svg) ](https://bintray.com/viartemev/Maven/ktor-flyway-feature/_latestVersion)
+
+Ktor feature for version control for your database by Flyway.
 ## Usage
 Set up a repository:
 ```groovy
