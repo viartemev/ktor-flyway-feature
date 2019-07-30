@@ -1,4 +1,5 @@
 # Ktor flyway feature
+Ktor feature for version control for your database by Flyway.
 
 [ ![Download](https://api.bintray.com/packages/viartemev/Maven/ktor-flyway-feature/images/download.svg) ](https://bintray.com/viartemev/Maven/ktor-flyway-feature/_latestVersion)
 ## Usage
