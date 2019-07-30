@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+}
+
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+
+group 'com.viartemev'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.flywaydb:flyway-core:5.2.4"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    runtime "ch.qos.logback:logback-classic:$logback_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+jar {
+    archiveBaseName = "ktor-flyway-feature"
+    archiveVersion = "0.1.0"
+}
+
+publish {
+    userOrg = 'viartemev'
+    repoName = 'Maven'
+    groupId = 'com.viartemev'
+    artifactId = 'ktor-flyway-feature'
+    publishVersion = '0.1.0'
+    desc = 'Ktor flyway feature'
+    website = 'https://github.com/viartemev/ktor-flyway-feature'
+    licences = ['MIT']
+}
