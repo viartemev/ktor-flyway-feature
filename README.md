@@ -2,17 +2,23 @@
 [ ![Download](https://api.bintray.com/packages/viartemev/Maven/ktor-flyway-feature/images/download.svg) ](https://bintray.com/viartemev/Maven/ktor-flyway-feature/_latestVersion)
 
 Ktor feature for version control for your database by Flyway.
+
 ## Usage
-Set up in Gradle:
+<details><summary>Set up in Gradle:</summary>
+
 ```groovy
 repositories {
     jcenter()
 }
+
 dependencies {
     implementation("com.viartemev:ktor-flyway-feature:$ktor_flyway_feature_version")
 }
 ```
-Set up in Maven:
+</details>
+
+<details><summary>Set up in Maven:</summary>
+
 ```xml
 <repositories>
     <repository>
@@ -27,6 +33,8 @@ Set up in Maven:
   <version>${ktor_flyway_feature_version}</version>
 </dependency>
 ```
+</details>
+
 Add the feature to the code:
 ```kotlin
 install(Flyway) {
