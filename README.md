@@ -21,4 +21,10 @@ install(FlywayFeature) {
     location = "custom/dir" //optional, default value = "db/migration"
     commands = listOf(Migrate) //optional, default value = listOf(Info, Migrate)
 }
+
+install(Flyway) {
+    dataSource = database.connectionPool //required
+    location = "custom/dir" //optional, default value = "db/migration"
+    commands(Info, Migrate) //optional, default command list is: Info, Migrate
+}
 ```
