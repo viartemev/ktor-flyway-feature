@@ -41,7 +41,7 @@ compileTestKotlin {
 
 jar {
     archiveBaseName = "ktor-flyway-feature"
-    archiveVersion = "0.1.0"
+    archiveVersion = "0.2.0"
 }
 
 publish {
@@ -49,7 +49,7 @@ publish {
     repoName = 'Maven'
     groupId = 'com.viartemev'
     artifactId = 'ktor-flyway-feature'
-    publishVersion = '0.1.0'
+    publishVersion = '0.2.0'
     desc = 'Ktor flyway feature'
     website = 'https://github.com/viartemev/ktor-flyway-feature'
     licences = ['MIT']
