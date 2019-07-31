@@ -3,16 +3,29 @@
 
 Ktor feature for version control for your database by Flyway.
 ## Usage
-Set up a repository:
+Set up in Gradle:
 ```groovy
 repositories {
-    maven {
-        url  "https://dl.bintray.com/viartemev/Maven" 	
-    }
+    jcenter()
 }
 dependencies {
     implementation("com.viartemev:ktor-flyway-feature:$ktor_flyway_feature_version")
 }
+```
+Set up in Maven:
+```xml
+<repositories>
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.viartemev</groupId>
+  <artifactId>ktor-flyway-feature</artifactId>
+  <version>${ktor_flyway_feature_version}</version>
+</dependency>
 ```
 Add the feature to the code:
 ```kotlin
