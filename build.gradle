@@ -25,13 +25,19 @@ repositories {
     jcenter()
 }
 
+def junitJupiterVersion = '5.4.2'
 dependencies {
     implementation "org.flywaydb:flyway-core:5.2.4"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     runtime "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
-    testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
-    testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.4.2'
+    testCompile "io.ktor:ktor-server-test-host:$ktor_version"
+    testCompile 'io.kotlintest:kotlintest-runner-junit5:3.4.2'
+    testCompile "org.testcontainers:testcontainers:1.12.4"
+    //testCompile "org.testcontainers:junit-jupiter:1.12.4"
+    testCompile "org.testcontainers:postgresql:1.12.4"
+    //testCompile "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    //testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 }
 
 compileKotlin {
