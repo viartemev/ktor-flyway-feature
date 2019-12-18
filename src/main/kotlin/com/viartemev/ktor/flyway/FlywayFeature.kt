@@ -10,7 +10,7 @@ import org.flywaydb.core.Flyway
 import javax.sql.DataSource
 
 @KtorExperimentalAPI
-class Flyway(configuration: Configuration) {
+class FlywayFeature(configuration: Configuration) {
     private val dataSource = configuration.dataSource
     private val location = configuration.location
     private val commands: List<FlywayCommand> = configuration.commands
@@ -22,21 +22,21 @@ class Flyway(configuration: Configuration) {
         fun commands(vararg commandsToExecute: FlywayCommand) = commands.addAll(commandsToExecute)
     }
 
-    companion object Feature : ApplicationFeature<Application, Configuration, com.viartemev.ktor.flyway.Flyway> {
-        override val key = AttributeKey<com.viartemev.ktor.flyway.Flyway>("Flyway")
+    companion object Feature : ApplicationFeature<Application, Configuration, FlywayFeature> {
+        override val key = AttributeKey<FlywayFeature>("Flyway")
 
-        override fun install(pipeline: Application, configure: Configuration.() -> Unit): com.viartemev.ktor.flyway.Flyway {
+        override fun install(pipeline: Application, configure: Configuration.() -> Unit): FlywayFeature {
             val configuration = Configuration().apply(configure)
-            val flywayFeature = Flyway(configuration)
+            val flywayFeature = FlywayFeature(configuration)
             if (configuration.dataSource == null) throw ApplicationConfigurationException("DataSource is not configured")
 
             pipeline.log.info("Flyway migration has started")
 
             val flyway = Flyway
-                    .configure(pipeline.environment.classLoader)
-                    .dataSource(flywayFeature.dataSource)
-                    .also { config -> flywayFeature.location?.let { config.locations(it) } }
-                    .load()
+                .configure(pipeline.environment.classLoader)
+                .dataSource(flywayFeature.dataSource)
+                .also { config -> flywayFeature.location?.let { config.locations(it) } }
+                .load()
 
             flywayFeature.commands.map { command ->
                 pipeline.log.info("Running command: ${command.javaClass.simpleName}")

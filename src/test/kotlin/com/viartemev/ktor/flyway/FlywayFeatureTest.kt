@@ -13,7 +13,7 @@ class FlywayFeatureTest : StringSpec({
     "Flyway feature without datasource should throw exception" {
         shouldThrow<ApplicationConfigurationException> {
             withTestApplication {
-                application.install(Flyway)
+                application.install(FlywayFeature)
             }
         }
     }
