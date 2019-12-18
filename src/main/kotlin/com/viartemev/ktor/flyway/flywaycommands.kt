@@ -1,4 +1,4 @@
-package com.viartemev.ktor.feature.flyway
+package com.viartemev.ktor.flyway
 
 import org.flywaydb.core.Flyway
 

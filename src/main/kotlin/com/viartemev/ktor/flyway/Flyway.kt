@@ -1,6 +1,5 @@
 package com.viartemev.ktor.flyway
 
-import com.viartemev.ktor.feature.flyway.FlywayCommand
 import io.ktor.application.Application
 import io.ktor.application.ApplicationFeature
 import io.ktor.application.log
