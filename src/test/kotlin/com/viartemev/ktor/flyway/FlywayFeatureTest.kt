@@ -1,6 +1,8 @@
 package com.viartemev.ktor.flyway
 
 import com.viartemev.ktor.flyway.DbSpec.Companion.postgres
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
 import io.ktor.application.install
@@ -20,8 +22,19 @@ class FlywayFeatureTest : StringSpec({
         }
     }
 
-    "Postgres is running" {
-        assertTrue(postgres.isRunning());
+    "Flyway feature with datasource" {
+        val hikariConfig = HikariConfig().apply {
+            jdbcUrl = postgres.getJdbcUrl()
+            username = postgres.getUsername()
+            password = postgres.getPassword()
+        }
+        val hikariDataSource = HikariDataSource(hikariConfig)
+
+        withTestApplication {
+            application.install(FlywayFeature) {
+                dataSource = hikariDataSource
+            }
+        }
     }
 
 })
