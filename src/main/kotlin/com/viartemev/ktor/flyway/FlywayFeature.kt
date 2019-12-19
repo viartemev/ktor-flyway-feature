@@ -16,12 +16,12 @@ private val flyWayFeatureLogger: Logger = LoggerFactory.getLogger("com.viartemev
 class FlywayFeature(configuration: Configuration) {
     private val dataSource = configuration.dataSource
     private val location = configuration.location
-    private val commands: List<FlywayCommand> = configuration.commands
+    private val commands: Set<FlywayCommand> = configuration.commands
 
     class Configuration {
         var dataSource: DataSource? = null
         var location: String? = null
-        internal val commands = mutableListOf<FlywayCommand>()
+        internal val commands = mutableSetOf(Info, Migrate)
         fun commands(vararg commandsToExecute: FlywayCommand) = commands.addAll(commandsToExecute)
     }
 
