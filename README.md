@@ -38,7 +38,7 @@ dependencies {
 
 Add the feature to the code:
 ```kotlin
-install(Flyway) {
+install(FlywayFeature) {
     dataSource = database.connectionPool //required
     location = "custom/dir" //optional, default value = "db/migration"
     commands(Info, Migrate) //optional, default command list is: Info, Migrate
