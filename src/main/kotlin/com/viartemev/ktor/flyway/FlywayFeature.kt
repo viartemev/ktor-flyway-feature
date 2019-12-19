@@ -21,8 +21,10 @@ class FlywayFeature(configuration: Configuration) {
     class Configuration {
         var dataSource: DataSource? = null
         var location: String? = null
-        internal val commands = mutableSetOf(Info, Migrate)
-        fun commands(vararg commandsToExecute: FlywayCommand) = commands.addAll(commandsToExecute)
+        internal var commands: Set<FlywayCommand> = setOf(Info, Migrate)
+        fun commands(vararg commandsToExecute: FlywayCommand) {
+            commands = commandsToExecute.toSet()
+        }
     }
 
     companion object Feature : ApplicationFeature<Application, Configuration, FlywayFeature> {
