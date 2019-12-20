@@ -14,7 +14,7 @@ import kotlin.test.assertFalse
 
 @Testcontainers
 @KtorExperimentalAPI
-class FlywayFeatureTest : DatabaseAbstractTest() {
+class FlywayFeatureTest {
 
     @Container
     val postgres: PostgreSQLContainer<*> = PostgreSQLContainer<Nothing>().apply {
