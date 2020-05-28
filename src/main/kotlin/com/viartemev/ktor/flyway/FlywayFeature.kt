@@ -16,11 +16,13 @@ private val flyWayFeatureLogger: Logger = LoggerFactory.getLogger("com.viartemev
 class FlywayFeature(configuration: Configuration) {
     private val dataSource = configuration.dataSource
     private val location = configuration.location
+    private val schemas = configuration.schemas
     private val commands: Set<FlywayCommand> = configuration.commands
 
     class Configuration {
         var dataSource: DataSource? = null
         var location: String? = null
+        var schemas: Array<String>? = null
         internal var commands: Set<FlywayCommand> = setOf(Info, Migrate)
         fun commands(vararg commandsToExecute: FlywayCommand) {
             commands = commandsToExecute.toSet()
@@ -41,6 +43,7 @@ class FlywayFeature(configuration: Configuration) {
                 .configure(pipeline.environment.classLoader)
                 .dataSource(flywayFeature.dataSource)
                 .also { config -> flywayFeature.location?.let { config.locations(it) } }
+                .also { config -> flywayFeature.schemas?.let { config.schemas(*it) } }
                 .load()
 
             flywayFeature.commands.map { command ->
