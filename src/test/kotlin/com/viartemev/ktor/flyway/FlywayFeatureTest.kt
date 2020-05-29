@@ -11,6 +11,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 @Testcontainers
 @KtorExperimentalAPI
@@ -61,6 +62,93 @@ class FlywayFeatureTest {
                 commands(Info)
             }
         }
+        assertFalse(
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.tables \n" +
+                        "   WHERE  table_schema = 'public'\n" +
+                        "   AND    table_name = 'flyway_schema_history'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        )
+    }
+
+    @Test
+    fun `Install Flyway feature with Hikari datasource in custom schema`() {
+        withTestApplication {
+            application.install(FlywayFeature) {
+                dataSource = getDataSource(postgres)
+                schemas = arrayOf("CUSTOM_SCHEMA")
+            }
+        }
+
+        assertTrue {
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.tables \n" +
+                        "   WHERE  table_schema = 'CUSTOM_SCHEMA'\n" +
+                        "   AND    table_name = 'flyway_schema_history'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        }
+
+        assertFalse(
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.tables \n" +
+                        "   WHERE  table_schema = 'public'\n" +
+                        "   AND    table_name = 'flyway_schema_history'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        )
+
+        assertEquals(2, performQuery(postgres, "select count(*) from \"CUSTOM_SCHEMA\".flyway_schema_history").getLong(1))
+    }
+
+    @Test
+    fun `Install Flyway feature with Hikari datasource in multiple schemas`() {
+        withTestApplication {
+            application.install(FlywayFeature) {
+                dataSource = getDataSource(postgres)
+                schemas = arrayOf("CUSTOM_SCHEMA", "ANOTHER_CUSTOM_SCHEMA")
+            }
+        }
+
+        assertTrue {
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.tables \n" +
+                        "   WHERE  table_schema = 'CUSTOM_SCHEMA'\n" +
+                        "   AND    table_name = 'flyway_schema_history'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        }
+
+        assertTrue {
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.schemata \n" +
+                        "   WHERE  schema_name = 'ANOTHER_CUSTOM_SCHEMA'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        }
+
+        assertFalse {
+            performQuery(
+                postgres, "SELECT EXISTS (\n" +
+                        "   SELECT 1\n" +
+                        "   FROM   information_schema.tables \n" +
+                        "   WHERE  table_schema = 'ANOTHER_CUSTOM_SCHEMA'\n" +
+                        "   AND    table_name = 'flyway_schema_history'\n" +
+                        "   );\n"
+            ).getBoolean(1)
+        }
+
         assertFalse(
             performQuery(
                 postgres, "SELECT EXISTS (\n" +
