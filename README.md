@@ -42,5 +42,6 @@ install(FlywayFeature) {
     dataSource = database.connectionPool //required
     location = "custom/dir" //optional, default value = "db/migration"
     commands(Info, Migrate) //optional, default command list is: Info, Migrate
+    schemas = arrayOf("CUSTOM_SCHEMA_1", "CUSTOM_SCHEMA_2") // optional, default value is the DB product specific default schema
 }
 ```
