@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
 
 group 'com.viartemev'
-version '1.0.0'
+version '1.1.0'
 
 sourceCompatibility = 1.8
 
@@ -50,7 +50,7 @@ compileTestKotlin {
 
 jar {
     archiveBaseName = "ktor-flyway-feature"
-    archiveVersion = "1.0.0"
+    archiveVersion = "1.1.0"
 }
 
 test {
@@ -62,7 +62,7 @@ publish {
     repoName = 'Maven'
     groupId = 'com.viartemev'
     artifactId = 'ktor-flyway-feature'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.0'
     desc = 'Ktor flyway feature'
     website = 'https://github.com/viartemev/ktor-flyway-feature'
     licences = ['MIT']
