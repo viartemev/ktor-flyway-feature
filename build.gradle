@@ -3,14 +3,14 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.9.1'
+        classpath 'com.novoda:bintray-release:0.9.2'
     }
 }
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.61'
-    id 'com.adarshr.test-logger' version '2.0.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'com.adarshr.test-logger' version '2.1.0'
 }
 
 apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
@@ -26,19 +26,19 @@ repositories {
 }
 
 dependencies {
-    implementation "org.flywaydb:flyway-core:5.2.4"
+    implementation "org.flywaydb:flyway-core:6.5.3"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     runtime "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
-    testCompile "org.testcontainers:testcontainers:1.12.4"
-    testCompile "org.testcontainers:postgresql:1.12.4"
-    testCompile "org.testcontainers:junit-jupiter:1.12.4"
-    testCompile "com.zaxxer:HikariCP:3.4.1"
-    testCompile "org.postgresql:postgresql:42.2.9"
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.5.2"
-    testCompile "org.junit.jupiter:junit-jupiter-params:5.5.2"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+    testCompile "org.testcontainers:testcontainers:1.14.3"
+    testCompile "org.testcontainers:postgresql:1.14.3"
+    testCompile "org.testcontainers:junit-jupiter:1.14.3"
+    testCompile "com.zaxxer:HikariCP:3.4.5"
+    testCompile "org.postgresql:postgresql:42.2.14"
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.6.2"
+    testCompile "org.junit.jupiter:junit-jupiter-params:5.6.2"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.6.2"
 }
 
 compileKotlin {
