@@ -48,10 +48,21 @@ class FlywayFeatureTest {
         withTestApplication {
             application.install(FlywayFeature) {
                 dataSource = getDataSource(postgres)
-                location = "db/migration-custom"
+                locations = arrayOf("db/migration-custom")
             }
         }
         assertEquals(2, performQuery(postgres, "select count(*) from flyway_schema_history").getLong(1))
+    }
+
+    @Test
+    fun `Install Flyway feature with Hikari datasource and multiple locations`() {
+        withTestApplication {
+            application.install(FlywayFeature) {
+                dataSource = getDataSource(postgres)
+                locations = arrayOf("db/migration-custom", "db/migration-custom2")
+            }
+        }
+        assertEquals(3, performQuery(postgres, "select count(*) from flyway_schema_history").getLong(1))
     }
 
     @Test
