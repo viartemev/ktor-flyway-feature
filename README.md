@@ -1,5 +1,5 @@
 # Ktor flyway feature
-[![Build Status](https://travis-ci.org/viartemev/ktor-flyway-feature.svg?branch=master)](https://travis-ci.org/viartemev/ktor-flyway-feature)
+![CI](https://github.com/viartemev/ktor-flyway-feature/workflows/CI/badge.svg?branch=master)
 [ ![Download](https://api.bintray.com/packages/viartemev/Maven/ktor-flyway-feature/images/download.svg) ](https://bintray.com/viartemev/Maven/ktor-flyway-feature/_latestVersion)
 
 Ktor feature for version control for your database by Flyway.
