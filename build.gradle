@@ -32,7 +32,7 @@ dependencies {
     implementation "io.ktor:ktor-server-core:$ktor_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
     testCompile "org.testcontainers:testcontainers:1.15.0"
-    testCompile "org.testcontainers:postgresql:1.15.0"
+    testCompile "org.testcontainers:postgresql:1.15.1"
     testCompile "org.testcontainers:junit-jupiter:1.15.0"
     testCompile "com.zaxxer:HikariCP:3.4.5"
     testCompile "org.postgresql:postgresql:42.2.18"
