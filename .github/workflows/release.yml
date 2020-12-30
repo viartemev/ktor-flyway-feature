@@ -7,6 +7,7 @@ on:
      - v*
 jobs:
   publish:
+    runs-on: ubuntu-latest
     steps:
       - uses: jfrog/setup-jfrog-cli@v1
       - run: jfrog --version
