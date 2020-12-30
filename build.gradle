@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.viartemev'
-version '1.2.0'
+version '1.2.1'
 
 sourceCompatibility = 1.8
 
@@ -41,7 +41,7 @@ compileTestKotlin {
 
 jar {
     archiveBaseName = "ktor-flyway-feature"
-    archiveVersion = "1.1.0"
+    archiveVersion = "1.2.1"
 }
 
 test {
@@ -75,7 +75,7 @@ publishing {
             artifact sourcesJar
             groupId 'com.viartemev'
             artifactId 'ktor-flyway-feature'
-            version '1.2.0'
+            version '1.2.1'
 
             pom.withXml {
                 def root = asNode()
