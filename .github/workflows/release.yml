@@ -1,0 +1,12 @@
+name: Release
+on:
+  push:
+    branches:
+     - master
+    tags:
+     - v*
+jobs:
+  publish:
+    steps:
+      - uses: jfrog/setup-jfrog-cli@v1
+      - run: jfrog --version
