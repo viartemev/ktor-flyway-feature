@@ -2,7 +2,8 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
     id 'com.adarshr.test-logger' version '2.1.1'
-    id "com.jfrog.bintray" version "1.+"
+    id "com.jfrog.bintray" version "1.8.5"
+    id 'maven-publish'
 }
 
 group 'com.viartemev'
@@ -58,12 +59,20 @@ def pomConfig = {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
             artifact sourcesJar
-            artifact javadocJar
             groupId 'com.viartemev'
             artifactId 'ktor-flyway-feature'
             version '1.2.0'
@@ -90,10 +99,4 @@ bintray {
         issueTrackerUrl = 'https://github.com/viartemev/ktor-flyway-feature/issues'
         vcsUrl = 'https://github.com/viartemev/ktor-flyway-feature.git'
     }
-}
-
-publish {
-    groupId = 'com.viartemev'
-    artifactId = 'ktor-flyway-feature'
-    publishVersion = '1.1.0'
 }
