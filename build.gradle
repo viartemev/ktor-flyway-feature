@@ -1,9 +1,20 @@
+buildscript {
+    ext {
+        ktor_version = '1.5.0'
+        logback_version = '1.2.3'
+    }
+    repositories {
+        jcenter()
+    }
+}
+
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21-2'
-    id 'com.adarshr.test-logger' version '2.1.1'
-    id "com.jfrog.bintray" version "1.8.5"
+    id 'maven'
     id 'maven-publish'
+    id "com.jfrog.bintray" version "1.8.5"
+    id 'com.adarshr.test-logger' version '2.1.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
 }
 
 group 'com.viartemev'
@@ -48,39 +59,49 @@ test {
     useJUnitPlatform()
 }
 
-// Create the pom configuration:
-def pomConfig = {
-    developers {
-        developer {
-            id "viartemev"
-            name "Vyacheslav Artemyev"
-            email "viartemev@gmail.com"
-        }
-    }
-}
-
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 artifacts {
+    archives jar
     archives sourcesJar
 }
 
 publishing {
     publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            groupId 'com.viartemev'
-            artifactId 'ktor-flyway-feature'
-            version '1.2.1'
+        mavenJava(MavenPublication) {
+            artifact(sourcesJar) {
+                classifier = 'sources'
+            }
+            pom {
+                groupId = 'com.viartemev'
+                artifactId = 'ktor-flyway-feature'
 
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'Ktor flyway feature')
-                root.children().last() + pomConfig
+                from components.kotlin
+
+                name = 'Ktor Flyway feature'
+                description = 'Ktor flyway feature'
+                url = 'https://github.com/viartemev/ktor-flyway-feature'
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://raw.githubusercontent.com/viartemev/ktor-flyway-feature/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'viartemev'
+                        name = 'Vyacheslav Artemyev'
+                        email = 'viartemev@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/viartemev/ktor-flyway-feature.git'
+                    developerConnection = 'scm:git:ssh://github.com/viartemev/ktor-flyway-feature.git'
+                    url = 'https://github.com/viartemev/ktor-flyway-feature'
+                }
             }
         }
     }
@@ -89,14 +110,16 @@ publishing {
 bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
+    publications = ['mavenJava']
     pkg {
-        name = 'ktor-flyway-feature'
-        repo = 'Maven'
         userOrg = 'viartemev'
+        repo = 'Maven'
+        name = 'ktor-flyway-feature'
         licenses = ['MIT']
         desc = 'Ktor flyway feature'
         websiteUrl = 'https://github.com/viartemev/ktor-flyway-feature'
         issueTrackerUrl = 'https://github.com/viartemev/ktor-flyway-feature/issues'
         vcsUrl = 'https://github.com/viartemev/ktor-flyway-feature.git'
+        publicDownloadNumbers = true
     }
 }
