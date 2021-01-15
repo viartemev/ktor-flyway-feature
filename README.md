@@ -45,3 +45,5 @@ install(FlywayFeature) {
     schemas = arrayOf("CUSTOM_SCHEMA_1", "CUSTOM_SCHEMA_2") // optional, default value is the DB product specific default schema
 }
 ```
+## Contributing
+We welcome any contributions—reports of issues, ideas for enhancements, and pull requests related to either of those.
