@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.flywaydb:flyway-core:7.5.0"
+    implementation "org.flywaydb:flyway-core:7.5.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     runtime "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
