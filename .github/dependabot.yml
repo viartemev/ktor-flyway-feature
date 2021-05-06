@@ -6,11 +6,3 @@ updates:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: org.testcontainers:postgresql
-    versions:
-    - 1.15.2
-    - 1.15.3
-  - dependency-name: org.junit.jupiter:junit-jupiter-engine
-    versions:
-    - 5.7.1
