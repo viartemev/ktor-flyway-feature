@@ -3,28 +3,24 @@ buildscript {
         ktor_version = '1.6.0'
         logback_version = '1.2.3'
     }
-    repositories {
-        jcenter()
-    }
 }
 
 plugins {
     id 'java'
     id 'maven'
-    id 'maven-publish'
-    id "com.jfrog.bintray" version "1.8.5"
+    id 'signing'
     id 'com.adarshr.test-logger' version '3.0.0'
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
 
-group 'com.viartemev'
-version '1.2.2'
+group = 'com.viartemev'
+version = '1.3.0'
+archivesBaseName = "ktor-flyway-feature"
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -52,7 +48,7 @@ compileTestKotlin {
 
 jar {
     archiveBaseName = "ktor-flyway-feature"
-    archiveVersion = "1.2.2"
+    archiveVersion = "1.3.0"
 }
 
 test {
@@ -64,62 +60,63 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
 artifacts {
     archives jar
     archives sourcesJar
+    archives javadocJar
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact(sourcesJar) {
-                classifier = 'sources'
+signing {
+    useGpgCmd()
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
-            pom {
-                groupId = 'com.viartemev'
-                artifactId = 'ktor-flyway-feature'
 
-                from components.kotlin
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
 
-                name = 'Ktor Flyway feature'
-                description = 'Ktor flyway feature'
-                url = 'https://github.com/viartemev/ktor-flyway-feature'
+            pom.project {
+                name 'Ktor Flyway feature'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Ktor flyway feature'
+                url 'https://github.com/viartemev/ktor-flyway-feature'
+
+                scm {
+                    connection 'scm:git:git://github.com/viartemev/ktor-flyway-feature.git'
+                    developerConnection 'scm:git:ssh://github.com/viartemev/ktor-flyway-feature.git'
+                    url 'https://github.com/viartemev/ktor-flyway-feature'
+                }
+
                 licenses {
                     license {
-                        name = 'MIT'
-                        url = 'https://raw.githubusercontent.com/viartemev/ktor-flyway-feature/master/LICENSE'
+                        name 'MIT'
+                        url 'https://raw.githubusercontent.com/viartemev/ktor-flyway-feature/master/LICENSE'
                     }
                 }
+
                 developers {
                     developer {
-                        id = 'viartemev'
-                        name = 'Vyacheslav Artemyev'
-                        email = 'viartemev@gmail.com'
+                        id 'viartemev'
+                        name 'Vyacheslav Artemyev'
+                        email 'viartemev@gmail.com'
                     }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/viartemev/ktor-flyway-feature.git'
-                    developerConnection = 'scm:git:ssh://github.com/viartemev/ktor-flyway-feature.git'
-                    url = 'https://github.com/viartemev/ktor-flyway-feature'
                 }
             }
         }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['mavenJava']
-    pkg {
-        userOrg = 'viartemev'
-        repo = 'Maven'
-        name = 'ktor-flyway-feature'
-        licenses = ['MIT']
-        desc = 'Ktor flyway feature'
-        websiteUrl = 'https://github.com/viartemev/ktor-flyway-feature'
-        issueTrackerUrl = 'https://github.com/viartemev/ktor-flyway-feature/issues'
-        vcsUrl = 'https://github.com/viartemev/ktor-flyway-feature.git'
-        publicDownloadNumbers = true
     }
 }
