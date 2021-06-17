@@ -37,7 +37,7 @@ dependencies {
     testCompile "org.testcontainers:testcontainers:1.15.3"
     testCompile "org.testcontainers:junit-jupiter:1.15.3"
     testCompile "com.zaxxer:HikariCP:4.0.3"
-    testCompile "org.postgresql:postgresql:42.2.20"
+    testCompile "org.postgresql:postgresql:42.2.22"
     testCompile "org.junit.jupiter:junit-jupiter-api:5.7.2"
     testCompile "org.junit.jupiter:junit-jupiter-params:5.7.2"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:5.7.2"
