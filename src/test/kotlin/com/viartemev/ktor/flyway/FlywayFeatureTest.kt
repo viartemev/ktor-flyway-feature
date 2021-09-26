@@ -1,9 +1,8 @@
 package com.viartemev.ktor.flyway
 
-import io.ktor.application.install
-import io.ktor.config.ApplicationConfigurationException
-import io.ktor.server.testing.withTestApplication
-import io.ktor.util.KtorExperimentalAPI
+import io.ktor.application.*
+import io.ktor.config.*
+import io.ktor.server.testing.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.testcontainers.containers.PostgreSQLContainer
@@ -14,7 +13,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @Testcontainers
-@KtorExperimentalAPI
 class FlywayFeatureTest {
 
     @Container
@@ -116,7 +114,10 @@ class FlywayFeatureTest {
             ).getBoolean(1)
         )
 
-        assertEquals(2, performQuery(postgres, "select count(*) from \"CUSTOM_SCHEMA\".flyway_schema_history").getLong(1))
+        assertEquals(
+            2,
+            performQuery(postgres, "select count(*) from \"CUSTOM_SCHEMA\".flyway_schema_history").getLong(1)
+        )
     }
 
     @Test

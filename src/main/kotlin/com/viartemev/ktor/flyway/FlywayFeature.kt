@@ -1,10 +1,8 @@
 package com.viartemev.ktor.flyway
 
-import io.ktor.application.Application
-import io.ktor.application.ApplicationFeature
-import io.ktor.config.ApplicationConfigurationException
-import io.ktor.util.AttributeKey
-import io.ktor.util.KtorExperimentalAPI
+import io.ktor.application.*
+import io.ktor.config.*
+import io.ktor.util.*
 import org.flywaydb.core.Flyway
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -12,7 +10,6 @@ import javax.sql.DataSource
 
 private val flyWayFeatureLogger: Logger = LoggerFactory.getLogger("com.viartemev.ktor.flyway.FlywayFeature")
 
-@KtorExperimentalAPI
 class FlywayFeature(configuration: Configuration) {
     private val dataSource = configuration.dataSource
     private val locations = configuration.locations
