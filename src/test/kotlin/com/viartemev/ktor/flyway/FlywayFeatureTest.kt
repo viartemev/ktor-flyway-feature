@@ -14,7 +14,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 class FlywayFeatureTest {
 
     @Container
-    val postgres: PostgreSQLContainer<*> = PostgreSQLContainer<Nothing>().apply {
+    val postgres: PostgreSQLContainer<*> = PostgreSQLContainer<Nothing>("postgres:9.6.12").apply {
         withDatabaseName("flyway")
         withUsername("flyway")
         withPassword("12345")
