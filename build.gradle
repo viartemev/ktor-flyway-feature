@@ -1,16 +1,16 @@
 buildscript {
     ext {
-        ktor_version = '1.6.0'
-        logback_version = '1.2.3'
+        ktor_version = '1.6.3'
+        logback_version = '1.2.6'
     }
 }
 
 plugins {
     id 'java'
-    id 'maven'
     id 'signing'
+    id 'maven-publish'
     id 'com.adarshr.test-logger' version '3.0.0'
-    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
 }
 
 group = 'com.viartemev'
@@ -24,19 +24,19 @@ repositories {
 }
 
 dependencies {
-    implementation "org.flywaydb:flyway-core:7.9.2"
+    implementation "org.flywaydb:flyway-core:7.15.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    runtime "ch.qos.logback:logback-classic:$logback_version"
+    runtimeOnly "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
-    testCompile "io.ktor:ktor-server-test-host:$ktor_version"
-    testCompile "org.testcontainers:postgresql:1.15.3"
-    testCompile "org.testcontainers:testcontainers:1.15.3"
-    testCompile "org.testcontainers:junit-jupiter:1.15.3"
-    testCompile "com.zaxxer:HikariCP:4.0.3"
-    testCompile "org.postgresql:postgresql:42.2.20"
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.7.2"
-    testCompile "org.junit.jupiter:junit-jupiter-params:5.7.2"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.7.2"
+    testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
+    testImplementation "org.testcontainers:postgresql:1.16.0"
+    testImplementation "org.testcontainers:testcontainers:1.16.0"
+    testImplementation "org.testcontainers:junit-jupiter:1.16.0"
+    testImplementation "com.zaxxer:HikariCP:5.0.0"
+    testImplementation "org.postgresql:postgresql:42.2.24"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
 }
 
 compileKotlin {
