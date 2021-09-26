@@ -3,14 +3,12 @@ package com.viartemev.ktor.flyway
 import io.ktor.application.*
 import io.ktor.config.*
 import io.ktor.server.testing.*
+import org.junit.Assert.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @Testcontainers
 class FlywayFeatureTest {
@@ -92,7 +90,7 @@ class FlywayFeatureTest {
             }
         }
 
-        assertTrue {
+        assertTrue(
             performQuery(
                 postgres, "SELECT EXISTS (\n" +
                         "   SELECT 1\n" +
@@ -101,7 +99,7 @@ class FlywayFeatureTest {
                         "   AND    table_name = 'flyway_schema_history'\n" +
                         "   );\n"
             ).getBoolean(1)
-        }
+        )
 
         assertFalse(
             performQuery(
@@ -129,7 +127,7 @@ class FlywayFeatureTest {
             }
         }
 
-        assertTrue {
+        assertTrue(
             performQuery(
                 postgres, "SELECT EXISTS (\n" +
                         "   SELECT 1\n" +
@@ -138,9 +136,9 @@ class FlywayFeatureTest {
                         "   AND    table_name = 'flyway_schema_history'\n" +
                         "   );\n"
             ).getBoolean(1)
-        }
+        )
 
-        assertTrue {
+        assertTrue(
             performQuery(
                 postgres, "SELECT EXISTS (\n" +
                         "   SELECT 1\n" +
@@ -148,9 +146,9 @@ class FlywayFeatureTest {
                         "   WHERE  schema_name = 'ANOTHER_CUSTOM_SCHEMA'\n" +
                         "   );\n"
             ).getBoolean(1)
-        }
+        )
 
-        assertFalse {
+        assertFalse(
             performQuery(
                 postgres, "SELECT EXISTS (\n" +
                         "   SELECT 1\n" +
@@ -159,7 +157,7 @@ class FlywayFeatureTest {
                         "   AND    table_name = 'flyway_schema_history'\n" +
                         "   );\n"
             ).getBoolean(1)
-        }
+        )
 
         assertFalse(
             performQuery(
