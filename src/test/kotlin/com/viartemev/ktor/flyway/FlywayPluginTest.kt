@@ -9,10 +9,10 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
-class FlywayFeatureTest {
+class FlywayPluginTest {
 
     @Container
-    val postgres: PostgreSQLContainer<*> = PostgreSQLContainer<Nothing>("postgres:13.4").apply {
+    val postgres: PostgreSQLContainer<*> = PostgreSQLContainer<Nothing>("postgres:14.2").apply {
         withDatabaseName("flyway")
         withUsername("flyway")
         withPassword("12345")
@@ -22,7 +22,7 @@ class FlywayFeatureTest {
     fun `Install Flyway feature without datasource should throw exception`() {
         Assertions.assertThrows(ApplicationConfigurationException::class.java) {
             testApplication {
-                install(FlywayFeature)
+                install(FlywayPlugin)
             }
         }
     }
@@ -30,7 +30,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
             }
         }
@@ -40,7 +40,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource and overridden location`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
                 locations = arrayOf("db/migration-custom")
             }
@@ -51,7 +51,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource and multiple locations`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
                 locations = arrayOf("db/migration-custom", "db/migration-custom2")
             }
@@ -62,7 +62,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource and overridden commands`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
                 commands(Info)
             }
@@ -82,7 +82,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource in custom schema`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
                 schemas = arrayOf("CUSTOM_SCHEMA")
             }
@@ -119,7 +119,7 @@ class FlywayFeatureTest {
     @Test
     fun `Install Flyway feature with Hikari datasource in multiple schemas`() {
         testApplication {
-            install(FlywayFeature) {
+            install(FlywayPlugin) {
                 dataSource = getDataSource(postgres)
                 schemas = arrayOf("CUSTOM_SCHEMA", "ANOTHER_CUSTOM_SCHEMA")
             }
