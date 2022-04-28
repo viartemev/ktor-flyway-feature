@@ -1,7 +1,7 @@
 package com.viartemev.ktor.flyway
 
-import io.ktor.application.*
-import io.ktor.config.*
+import io.ktor.server.application.*
+import io.ktor.server.config.*
 import io.ktor.util.*
 import org.flywaydb.core.Flyway
 import org.slf4j.Logger
