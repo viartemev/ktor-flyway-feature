@@ -28,7 +28,7 @@ dependencies {
     runtimeOnly "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
     testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
-    testImplementation "org.testcontainers:postgresql:1.16.2"
+    testImplementation "org.testcontainers:postgresql:1.17.6"
     testImplementation "org.testcontainers:testcontainers:1.16.2"
     testImplementation "org.testcontainers:junit-jupiter:1.16.2"
     testImplementation "com.zaxxer:HikariCP:5.0.0"
